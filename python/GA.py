@@ -17,21 +17,13 @@ def random_population(size):
 
 #GA Algorithms
 def main():
-    pass
+    iter = 50
+    pop_size = 50
+    mutation = 0.05
+    pop = random_population(50)
+    print(battles.population_scores(pop))
 
 
-
-
-
-
-def selection(population):
-    #match genes into groups of 2
-    duels = [population[i:i+2] for i in range(0, len(population), 2)]
-    print(duels)
-    for duel in duels:
-        print(duel)
-        score = battles.vanilla_score(duel[0][0], duel[1][0])
-        print(score)
 
 def crossover(population, p):
     pass
@@ -44,3 +36,7 @@ def mutate(population, p):
                 options = [0,1,2,3]
                 options.remove(gene[0][i])
                 gene[0][i] = random.choice(options)
+
+
+if __name__== "__main__":
+  main()

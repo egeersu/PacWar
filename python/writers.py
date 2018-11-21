@@ -25,7 +25,7 @@ def initialize_champions(size):
     if os.stat("champions.txt").st_size == 0:
         for i in range(size):
             gene = random_gene()
-            f.write(gene_to_string(gene, 0))
+            f.write(gene_to_string(gene, 0.00))
 
 def gene_to_string(gene, score):
     #  [1,3,2], 17 -> "1 3 2 17"
@@ -34,7 +34,7 @@ def string_to_gene(s):
     #  "1 3 2 17" -> ( [1,3,2], 17)
     s = s.split()
     gene = list(map(int, s[0:len(s)-1]))
-    score = int(s[len(s)-1])
+    score = float(s[len(s)-1])
     return (gene, score)
 def random_gene():
     gene = []
@@ -42,7 +42,9 @@ def random_gene():
         gene.append(random.choice([0,1,2,3]))
     return gene
 
-#initialize_champions(10)
-#read_genes(champions)
-#genes1 = [([1,3,2], 10), ([0,1,2], 12), ([3,2,1], 28)]
+initialize_champions(10)
+#genes1 = [([1,3,2], 10.12), ([0,1,2], 12.32), ([3,2,1], 28.92)]
+#str2 = "1 3 2 4 18.93"
+#print(string_to_gene(str2))
+
 #write_genes(genes1, champions)
