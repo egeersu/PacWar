@@ -19,27 +19,11 @@ def write_genes(genes, file):
         f.write(gene_to_string(t[0], t[1]))
 
 def initialize_champions(size):
-    f = open("champions.txt", "r+")
-    if len(f.read()) == 0:
-        print("EMPTY AS FUCK")
-        for i in range(size):
-            gene = random_gene()
-            f.write(gene_to_string(gene, 0.00))
-    else:
-        print("OH SHIT IT'S FULL")
+    f = open("champions.txt", "w")
+    for i in range(size):
+        gene = random_gene()
+        f.write(gene_to_string(gene, 0.00))
 
-
-def initialize_champions2(size):
-    #if file does not exist create new
-    f = open("champions.txt", "")
-    print("length: ", len(f.read()))
-    if len(f.read()) == 0:
-        print("EMPTY AS FUCK")
-        for i in range(size):
-            gene = random_gene()
-            f.write(gene_to_string(gene, 0.00))
-    else:
-        print("OH SHIT IT'S FULL")
 
 def read_champions():
     return read_genes("champions.txt")
@@ -61,6 +45,6 @@ def random_gene():
         gene.append(random.choice([0,1,2,3]))
     return gene
 
-
-initialize_champions(10)
+#initialize_champions(10)
 print(read_champions())
+#print(read_champions())

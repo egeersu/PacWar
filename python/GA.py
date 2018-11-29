@@ -52,11 +52,12 @@ def main():
             print(GA_round)
             scores = battles.get_pop_scores(pop)
             pop = sort_genes(pop, scores)
-            print(pop[0], battles.real_score(pop[0], pop))
+            #print(pop[0], battles.real_score(pop[0], pop))
             crossover(pop, crossover_p)
             mutate(pop, mutation_p)
 
-        battles.check_if_champions(pop)
+        print("...checking champions...")
+        print(battles.check_if_champions(pop))
 
 
 def sort_genes(pop, scores):

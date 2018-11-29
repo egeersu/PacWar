@@ -21,12 +21,6 @@ def pop_score(gene1, pop):
         totalVanilla += s
     return totalVanilla/len(pop)
 
-def check_if_champions(pop):
-    for p in pop:
-        for champ in champions
-        gene1 = p[0]
-
-
 
 #BEWARE: score avg is float at the end, might cause reading problems
 #optimize: reading champions from txt every time
@@ -87,11 +81,25 @@ def vanilla_score(gene1, gene2):
         return 10
 
 def check_if_champions(pop):
-    pass
+    champs = writers.read_champions()
+    new_champs = []
+    for p in pop:
+        gene1 = p[0]
+        for champ in champs:
+            rounds, survivors1, survivors2 = battle(gene1, champ[0])
+            gene2_score = real_score(gene2, pop)
+            new_champs.append(gene2, champ[0])
+            if survivors1 > survivors2:
+                gene1_score= real_score(gene1, pop)
+                new_champs.append(gene1, gene1_score)
+    return new_champs
 
 
 
 
+#1024 1024 2048 64
+
+print(check_if_champions())
 test1 = "0 3 1 0 0 0 0 0 0 3 1 3 0 1 2 1 3 2 3 3 3 3 3 2 2 2 1 2 1 1 2 1 3 1 1 1 2 1 1 3 1 1 3 1 1 2 0 1 3 1".split()
 test2 = [0, 3, 1, 0, 0, 1, 2, 3, 3, 3, 3, 0, 2, 2, 0, 0, 3, 2, 3, 3, 3, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 3, 0, 1, 1, 1, 2, 3, 1, 1, 2, 0]
 #print(vanilla_score(test1, test2))
