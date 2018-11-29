@@ -2,8 +2,30 @@ from _PyPacwar import battle
 import numpy as np
 import writers
 
-def real_score(gene1, gene2):
-    pass
+def get_pop_scores(pop):
+    scores = []
+    for g in pop:
+        scores.append(real_score(g, pop))
+    return scores
+
+
+def real_score(gene1, pop):
+    score = 0.5 * champion_score(gene1[0]) + 0.5 * pop_score(gene1[0], pop)
+    return score
+
+def pop_score(gene1, pop):
+    totalVanilla = 0
+    for g in pop:
+        gene2 = g[0]
+        s = vanilla_score(gene1, gene2)
+        totalVanilla += s
+    return totalVanilla/len(pop)
+
+def check_if_champions(pop):
+    for p in pop:
+        for champ in champions
+        gene1 = p[0]
+
 
 
 #BEWARE: score avg is float at the end, might cause reading problems
@@ -30,7 +52,18 @@ def duel_scores(population):
 
 #population will halve
 def dueling_stage(population):
-    
+    duels = [population[i:i+2] for i in range(0, len(population), 2)]
+    newpop = []
+    for duel in duels:
+        gene1 = duel[0][0]
+        gene2 = duel[1][0]
+        rounds, survivors1, survivors2 = battle(gene1, gene2)
+        if survivors1 > survivors2:
+            newpop.append((gene1, 0.0))
+        else:
+            newpop.append((gene2, 0.0))
+    print(len(newpop))
+    return newpop
 
 
 def vanilla_score(gene1, gene2):
@@ -52,6 +85,10 @@ def vanilla_score(gene1, gene2):
         elif c > 3: return (12,8)[i]
         elif c > 1.5: return (11,9)[i]
         return 10
+
+def check_if_champions(pop):
+    pass
+
 
 
 
