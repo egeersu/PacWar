@@ -1,0 +1,16 @@
+Pacmite Genetic Algorithm Instructions
+
+Files:
+
+GA.py is the main Genetic Algorithm File. The main function is in here.
+
+Battles.py contains functions that do battles and get scores/sort populations based on these scores.
+
+Writers.py has a bunch of file writing/reading functions. Functions that read and update champions are in here. 
+
+Rest of the files were in the original file, were not modified. 
+
+HOW TO RUN:
+Go into the Python file and run GA.py with python3
+It will automatically create a champions.txt file and update it after each iteration.
+It will also output the current best gene after each iteration of the main function. 

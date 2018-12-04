@@ -24,6 +24,9 @@ def initialize_champions(size):
         gene = random_gene()
         f.write(gene_to_string(gene, 0.00))
 
+def clear_champions():
+    f = open("champions.txt", "w")
+    f.truncate(0)
 
 def read_champions():
     return read_genes("champions.txt")
@@ -44,7 +47,3 @@ def random_gene():
     for i in range(50):
         gene.append(random.choice([0,1,2,3]))
     return gene
-
-#initialize_champions(10)
-print(read_champions())
-#print(read_champions())

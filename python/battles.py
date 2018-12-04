@@ -2,6 +2,9 @@ from _PyPacwar import battle
 import numpy as np
 import writers
 
+def initialize_files(num):
+    writers.initialize_champions(num)
+
 def get_pop_scores(pop):
     scores = []
     for g in pop:
@@ -11,6 +14,7 @@ def get_pop_scores(pop):
 
 def real_score(gene1, pop):
     score = 0.5 * champion_score(gene1[0]) + 0.5 * pop_score(gene1[0], pop)
+    #print("champ:", champion_score(gene1[0]), "pop:" ,pop_score(gene1[0], pop))
     return score
 
 def pop_score(gene1, pop):
@@ -80,29 +84,46 @@ def vanilla_score(gene1, gene2):
         elif c > 1.5: return (11,9)[i]
         return 10
 
+
+
+def sort_genes(pop, scores):
+    for i in range(len(scores)):
+        scores[i] = (pop[i][0], scores[i])
+    scores.sort(key=lambda tup: tup[1], reverse = True)
+    genes = []
+    for s in scores:
+        genes.append((s[0], 0))
+    return genes
+
+
 def check_if_champions(pop):
     champs = writers.read_champions()
     new_champs = []
+    new_scores = []
+
+
+
     for p in pop:
         gene1 = p[0]
+
         for champ in champs:
-            rounds, survivors1, survivors2 = battle(gene1, champ[0])
-            gene2_score = real_score(gene2, pop)
-            new_champs.append(gene2, champ[0])
-            if survivors1 > survivors2:
-                gene1_score= real_score(gene1, pop)
-                new_champs.append(gene1, gene1_score)
+            gene2 = champ[0]
+            if (gene2, 0) not in new_champs:
+                rounds, survivors1, survivors2 = battle(gene1, gene2)
+                gene2_score = real_score((gene2, 0), pop)
+                new_champs.append((gene2, 0))
+                new_scores.append(gene2_score)
+
+            if (gene1, 0) not in new_champs:
+                if survivors1 > survivors2:
+                        gene1_score = real_score((gene1, 0), pop)
+                        new_champs.append((gene1, 0))
+                        new_scores.append(gene1_score)
+
+    new_champs = sort_genes(new_champs, new_scores)[0:12]
+
+    writers.clear_champions()
+    writers.write_genes(new_champs, "champions.txt")
+    #print(new_champs)
+    print("Best Gene: ", new_champs[0][0], max(new_scores))
     return new_champs
-
-
-
-
-#1024 1024 2048 64
-
-print(check_if_champions())
-test1 = "0 3 1 0 0 0 0 0 0 3 1 3 0 1 2 1 3 2 3 3 3 3 3 2 2 2 1 2 1 1 2 1 3 1 1 1 2 1 1 3 1 1 3 1 1 2 0 1 3 1".split()
-test2 = [0, 3, 1, 0, 0, 1, 2, 3, 3, 3, 3, 0, 2, 2, 0, 0, 3, 2, 3, 3, 3, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 3, 0, 1, 1, 1, 2, 3, 1, 1, 2, 0]
-#print(vanilla_score(test1, test2))
-#g1 = writers.random_gene()
-#writers.initialize_champions(20)
-#print(champion_score(test2))

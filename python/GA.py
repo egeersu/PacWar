@@ -15,32 +15,17 @@ def random_population(size):
         population.append((random_gene(), 0))
     return population
 
-#GA Algorithms
-def main2():
-    #Initialize documents
-
-    #Hyper Parameters
-    iter = 50
-    pop_size = 1024
-    mutation = 0.05
-    pop = random_population(pop_size)
-    #Tournament
-    for i in range(iter):
-        for i in range(6):
-            pop = battles.dueling_stage(pop)
-
-        #Main GA algorithm
-        scores = battles.get_pop_scores(pop)
-        pop = sort_genes(pop, scores)
-        crossover(pop, 0.5)
 
 def main():
     #Hyper Parameters
-    generations = 10
-    GA_rounds = 50
+    generations = 300
+    GA_rounds = 80
+    champions_size = 12
     pop_size = 1024
     mutation_p = 0.05
     crossover_p = 0.3
+
+    battles.initialize_files(champions_size)
 
     for generation in range(generations):
         pop = random_population(pop_size)
@@ -52,12 +37,11 @@ def main():
             print(GA_round)
             scores = battles.get_pop_scores(pop)
             pop = sort_genes(pop, scores)
-            #print(pop[0], battles.real_score(pop[0], pop))
             crossover(pop, crossover_p)
             mutate(pop, mutation_p)
 
         print("...checking champions...")
-        print(battles.check_if_champions(pop))
+        battles.check_if_champions(pop)
 
 
 def sort_genes(pop, scores):
